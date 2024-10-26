@@ -16,7 +16,7 @@
 <meta property="og:description" content="1.数据库的分页MySQL中，SELECT语句默认返回所有匹配的行MySQL中select语句，使用limit可以实现分页查询。 12select prod_name from products limit 5; -- 返回前5行记录select prod_name from products limit 5,5; -- 从第5行开始，返回5行记录  2.SQL195 查找最晚入职员工的所有信息这">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-10-24T11:42:13.000Z">
-<meta property="article:modified_time" content="2024-10-24T12:15:12.295Z">
+<meta property="article:modified_time" content="2024-10-24T13:21:09.784Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -177,8 +177,8 @@
         <h4 id="1-数据库的分页"><a href="#1-数据库的分页" class="headerlink" title="1.数据库的分页"></a>1.数据库的分页</h4><p>MySQL中，SELECT语句默认返回所有匹配的行MySQL中select语句，使用limit可以实现分页查询。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> prod_name <span class="keyword">from</span> products limit <span class="number">5</span>; <span class="comment">-- 返回前5行记录</span></span><br><span class="line"><span class="keyword">select</span> prod_name <span class="keyword">from</span> products limit <span class="number">5</span>,<span class="number">5</span>; <span class="comment">-- 从第5行开始，返回5行记录</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="2-SQL195-查找最晚入职员工的所有信息"><a href="#2-SQL195-查找最晚入职员工的所有信息" class="headerlink" title="2.SQL195 查找最晚入职员工的所有信息"></a>2.SQL195 查找最晚入职员工的所有信息</h4><p>这里由一张员工表，查找最晚入职员工的所有信息，最晚入职的员工有可能不止一个！<br>drop table if exists  <code>employees</code> ;<br>CREATE TABLE <code>employees</code> (<br>    <code>emp_no</code> int(11) NOT NULL,<br>    <code>birth_date</code> date NOT NULL,<br>    <code>first_name</code> varchar(14) NOT NULL,<br>    <code>last_name</code> varchar(16) NOT NULL,<br>    <code>gender</code> char(1) NOT NULL,<br>    <code>hire_date</code> date NOT NULL,<br>PRIMARY KEY (<code>emp_no</code>));</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> hire_date <span class="operator">=</span> (<span class="keyword">select</span> <span class="built_in">max</span>(hire_date) <span class="keyword">from</span> employees)</span><br></pre></td></tr></table></figure>
+<h4 id="2-SQL195-查找最晚入职员工的所有信息"><a href="#2-SQL195-查找最晚入职员工的所有信息" class="headerlink" title="2.SQL195 查找最晚入职员工的所有信息"></a>2.SQL195 查找最晚入职员工的所有信息</h4><p>这里由一张员工表，查找最晚入职员工的所有信息，最晚入职的员工有可能不止一个！</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span>  `employees` ; </span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `employees` (</span><br><span class="line">    `emp_no` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `birth_date` <span class="type">date</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `first_name` <span class="type">varchar</span>(<span class="number">14</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `last_name` <span class="type">varchar</span>(<span class="number">16</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `gender` <span class="type">char</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `hire_date` <span class="type">date</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"><span class="keyword">PRIMARY</span> KEY (`emp_no`));</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> hire_date <span class="operator">=</span> (<span class="keyword">select</span> <span class="built_in">max</span>(hire_date) <span class="keyword">from</span> employees)</span><br></pre></td></tr></table></figure>
       
 
       
@@ -269,6 +269,20 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2024/10/26/CPlusPlus/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CPlusPlus
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
